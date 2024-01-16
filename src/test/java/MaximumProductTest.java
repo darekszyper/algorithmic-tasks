@@ -49,6 +49,8 @@ class MaximumProductTest {
     void findMaximumProductOfTwoNumbers_ArrayWithNotEnoughNumbers_NotEnoughNumbersException() {
         // Given
         int[] nums = new int[1];
+
+        // Then
         assertThrows(NotEnoughNumbersException.class, () -> sut.findMaximumProductOfTwoNumbers(nums));
     }
 }
