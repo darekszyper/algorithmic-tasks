@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
 Given a string s, find the length of the longest
@@ -28,19 +28,23 @@ Notice that the answer must be a substring, "pwke" is a subsequence and not a su
 public class LongestSubstring {
 
     public int lengthOfLongestSubstring(String s) {
-        int max = 0;
+        int maxValue = 0;
+        int startPointer = 0;
+        Set<Character> uniqueLetters = new HashSet<>();
 
-        if (s.length() == 1) return 1;
-
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = i + 1; j <= s.length(); j++) {
-                if (j == s.length() || s.substring(i, j).indexOf(s.charAt(j - 1)) != -1) {
-                    max = Math.max(j - i, max);
-                    break;
+        for (int endPointer = 0; endPointer < s.length(); endPointer++) {
+            if (!uniqueLetters.contains(s.charAt(endPointer))) {
+                uniqueLetters.add(s.charAt(endPointer));
+                maxValue = Math.max(maxValue, uniqueLetters.size());
+            } else {
+                while (uniqueLetters.contains(s.charAt(endPointer))) {
+                    uniqueLetters.remove(s.charAt(startPointer));
+                    startPointer++;
                 }
+                uniqueLetters.add(s.charAt(endPointer));
             }
         }
 
-        return max;
+        return maxValue;
     }
 }
